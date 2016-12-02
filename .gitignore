@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.serverless/
+.DS_Store
+.env.yml
+try.paw

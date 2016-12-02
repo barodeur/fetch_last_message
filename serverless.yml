@@ -1,0 +1,30 @@
+service: ${file(./.env.yml):SERVICE_NAME}
+
+custom:
+  defaultStage: dev
+
+provider:
+  name: aws
+  runtime: nodejs4.3
+  region: eu-central-1
+  stage: ${opt:stage, self:custom.defaultStage}
+  memorySize: 128
+  apiKeys:
+    - ${file(./.env.yml):SERVICE_NAME}-${self:provider.stage}
+  environment: ${file(./.env.yml)}
+
+functions:
+  fetchLastMessage:
+    handler: dist/handler.fetchLastMessage
+
+    events:
+      - http:
+          path: messages/last
+          method: get
+          private: true
+
+package:
+  exclude:
+    - "**"
+  include:
+    - "dist/**"

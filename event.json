@@ -1,0 +1,51 @@
+{
+  "resource": "/messages",
+  "path": "/messages",
+  "httpMethod": "GET",
+  "headers": {
+    "CloudFront-Forwarded-Proto": "https",
+    "CloudFront-Is-Desktop-Viewer": "true",
+    "CloudFront-Is-Mobile-Viewer": "false",
+    "CloudFront-Is-SmartTV-Viewer": "false",
+    "CloudFront-Is-Tablet-Viewer": "false",
+    "CloudFront-Viewer-Country": "CA",
+    "Host": "o5r214w4vl.execute-api.eu-central-1.amazonaws.com",
+    "User-Agent": "Paw/3.0.13 (Macintosh; OS X/10.12.1) GCDHTTPRequest",
+    "Via": "1.1 1d43f56d3213a63608863fd0e49585b9.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Id": "HkWB6MJd2nP84x3C_54jElVujBgvr4uSyXH28NR55JOtg-pVq5aYPw==",
+    "x-api-key": "UB2pBQ149D9PKfCsBjK4u9Bb6WEHnav64MngqGib",
+    "X-Forwarded-For": "216.46.4.250, 54.240.159.7",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "queryStringParameters": {
+    "throw": "true"
+  },
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "accountId": "767605993600",
+    "resourceId": "70i31f",
+    "stage": "dev",
+    "requestId": "f260c713-b803-11e6-a6ec-e79dcf59fbd8",
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "apiKey": "UB2pBQ149D9PKfCsBjK4u9Bb6WEHnav64MngqGib",
+      "sourceIp": "216.46.4.250",
+      "accessKey": null,
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "Paw/3.0.13 (Macintosh; OS X/10.12.1) GCDHTTPRequest",
+      "user": null
+    },
+    "resourcePath": "/messages",
+    "httpMethod": "GET",
+    "apiId": "o5r214w4vl"
+  },
+  "body": null,
+  "isBase64Encoded": false
+}

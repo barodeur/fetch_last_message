@@ -4,11 +4,9 @@ const path = require('path');
 module.exports = {
   entry: './src/handler.js',
   output: {
-    libraryTarget: 'commonjs2',
-    path: path.join(__dirname, 'dist'),
-    library: 'handler',
+    libraryTarget: 'commonjs',
+    path: path.join(__dirname, '.webpack'),
     filename: 'handler.js',
-    sourceMapFilename: 'handler.map.js',
   },
   target: 'node',
   module: {
@@ -25,7 +23,6 @@ module.exports = {
   plugins: [
     new webpack.optimize.UglifyJsPlugin(),
     // new webpack.optimize.OccurrenceOrderPlugin(),
-    // new webpack.optimize.DedupePlugin(),
   ],
   devtool: '#source-map',
 };

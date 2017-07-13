@@ -5,7 +5,8 @@ custom:
 
 provider:
   name: aws
-  runtime: nodejs4.3
+  runtime: nodejs6.10
+  profile: mesvaccins
   region: eu-central-1
   stage: ${opt:stage, self:custom.defaultStage}
   memorySize: 128
@@ -15,7 +16,7 @@ provider:
 
 functions:
   fetchLastMessage:
-    handler: dist/handler.fetchLastMessage
+    handler: handler.fetchLastMessage
 
     events:
       - http:
@@ -23,8 +24,74 @@ functions:
           method: get
           private: true
 
-package:
-  exclude:
-    - "**"
-  include:
-    - "dist/**"
+resources:
+  Resources:
+    usagePlan:
+      Type: AWS::ApiGateway::UsagePlan
+      Properties:
+        ApiStages:
+          -
+            ApiId:
+              Ref: ApiGatewayRestApi
+            Stage: ${self:provider.stage}
+        Description: Usage plan for ${self:provider.stage}
+        Quota:
+          Limit: 5000
+          Period: MONTH
+        Throttle:
+          BurstLimit: 200
+          RateLimit: 100
+        UsagePlanName: UsagePlan-${self:provider.stage}
+    usagePlanKey:
+      Type: "AWS::ApiGateway::UsagePlanKey"
+      Properties :
+        KeyId:
+          Ref: ApiGatewayApiKey1
+        KeyType: API_KEY
+        UsagePlanId:
+          Ref: 'usagePlan'
+    distribution:
+      Type: AWS::CloudFront::Distribution
+      Properties:
+        DistributionConfig:
+          Aliases:
+            - "mesvaccins-otp.chobert.fr"
+          DefaultCacheBehavior:
+            ForwardedValues:
+              Cookies:
+                Forward: none
+              Headers:
+                - Accept
+                - Content-Type
+                - Authorization
+                - X-Api-Key
+              QueryString: false
+            TargetOriginId: api
+            ViewerProtocolPolicy: https-only
+          Enabled: true
+          HttpVersion: http2
+          Origins:
+            - Id: api
+              DomainName:
+                Fn::Join:
+                  - ""
+                  - - Ref: ApiGatewayRestApi
+                    - ".execute-api.eu-central-1.amazonaws.com"
+              OriginPath: /prod
+              CustomOriginConfig:
+                HTTPPort: 80
+                HTTPSPort: 443
+                OriginProtocolPolicy: https-only
+          PriceClass: PriceClass_100
+          ViewerCertificate:
+            AcmCertificateArn: arn:aws:acm:us-east-1:719465374780:certificate/c753363d-144c-4512-ae34-7dca23ae0782
+            SslSupportMethod: sni-only
+
+# package:
+#   # exclude:
+#   #   - "**"
+#   include:
+#     - "dist/**"
+
+plugins:
+  - serverless-webpack

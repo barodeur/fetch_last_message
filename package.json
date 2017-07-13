@@ -26,7 +26,11 @@
     "lodash": "^4.17.2",
     "node-fetch": "^1.6.3",
     "raven": "github:getsentry/raven-node#ea8213b96328bf0d96db735edcef3e50c72966df",
+    "serverless-webpack": "^1.0.0-rc.4",
     "source-map-support": "^0.4.6",
     "webpack": "^1.13.3"
+  },
+  "devDependencies": {
+    "jest-diff": "^20.0.3"
   }
 }
